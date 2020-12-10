@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+<title>Home</title>
+</head>
+<body>
+	<h1>
+		<span>Home :: Cadastro de Pessoas</span>
+	</h1>
+	<table>
+		<tr>
+			<td><a th:href="@{/pessoa/listar}">Listar Pessoas</td>
+		</tr>
+		<tr>
+			<td><a th:href="@{/pessoa/cadastro}">Cadastrar Pessoa</td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<style>
+.pagination {
+	display: inline-block;
+}
+
+.pagination a {
+	color: black;
+	float: left;
+	padding: 5px 5px;
+	text-decoration: none;
+}
+
+.pagination a.active {
+	background-color: gray;
+	color: white;
+	border-radius: 2px;
+}
+</style>
+<head>
+<title>Lista de Pessoas</title>
+</head>
+<body>
+    <h1>Lista de Pessoas</h1>
+    <form action="#" th:action="@{/pessoa/filtrar}" method="POST">
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>Filtro por nome</td>
+                    <td>
+                        <input type="text" name="filtro" id="filtro" size="50">
+                    </td>
+                    <td>
+                        <input type="submit" value="Filtrar">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <table border="1">
+        <thead>
+            <tr>
+                <th th:text="#{lista.pessoa.nome}"></th>
+                <th th:text="#{lista.pessoa.estado.civil}"></th>
+                <th th:text="#{lista.pessoa.data.nascimento}"></th>
+                <th th:text="#{lista.pessoa.nome.parceiro}"></th>
+                <th th:text="#{lista.pessoa.data.nascimento.parceiro}"></th>
+                <th th:text="#{lista.pessoa.acoes}" colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="pessoa, i : ${pessoas.content}"
+                th:style="${i.odd}? 'background-color: lightgray;'">
+                <td th:text="${pessoa.nome}"></td>
+                <td th:text="${pessoa.estadoCivil.descricao}"></td>
+                <td th:text="${#temporals.format(pessoa.dataNascimento,'dd/MM/yyyy')}"></td>
+                <td th:text="${pessoa.nomeParceiro}"></td>
+                <td th:text="${#temporals.format(pessoa.dataNascimentoParceiro,'dd/MM/yyyy')}"></td>
+                <td>
+                    <a href="#" th:href="@{/pessoa/edicao/{id}(id=${pessoa.id})}">Editar</a>
+                </td>
+                <td>
+                    <a href="#" th:href="@{/pessoa/excluir/{id}(id=${pessoa.id})}">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div th:if="${pessoas.totalPages > 0}" class="pagination" th:each="pageNumber : ${paginas}">
+        <a th:if="${pessoas.size > 0}" th:href="@{/pessoa/listar(size=${pessoas.size}, page=${pageNumber})}"
+            th:text=${pageNumber} th:class="${pageNumber == (pessoas.number + 1)} ? active"></a>
+        <a th:if="${pessoas.size < 1}" th:href="@{/pessoa/listar(page=${pageNumber})}"
+            th:text=${pageNumber} th:class="${pageNumber == (pessoas.number + 1)} ? active"></a>
+    </div>
+
+    <div>
+        <p>
+            <a th:href="@{/}">Home</a>
+        </p>
+    </div>
+</body>
+</html>
