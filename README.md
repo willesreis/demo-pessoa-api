@@ -15,14 +15,14 @@ Disponibilizar uma interface web que acessa algumas APIs REST para gerenciar ope
 A partir do diretório raiz do projeto, executar:
 ```
 [Unix]   $ ./mvnw clean install
-[Windows]> mvnw.bat clean install
+[Windows]> mvnw.cmd clean install
 ```
 
 ## Execução do projeto
 A partir do diretório raiz do projeto, executar:
 ```
 [Unix]   $ ./mvnw spring-boot:run
-[Windows]> mvnw.bat spring-boot:run
+[Windows]> mvnw.cmd spring-boot:run
 ```
 - **note**: inicia na porta 8080 com a tabela de pessoas vazia.
 
