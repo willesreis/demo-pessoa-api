@@ -1,67 +1,73 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
-<head>
-    <title>Cadastro de Pessoa</title>
-    <style type="text/css">
-    label {
-        display: inline-block;
-        width: 200px;
-        margin: 5px;
-        text-align: left;
-    }
-    span {
-        color: orangered;
-    }
-    input[type=text], select {
-        display: inline-block;
-        width: 200px;
-    }
-    input[type=submit] {
-        padding: 5px;
-        margin: 10px;
-    }
-    </style>
-</head>
-<body>
-    <h1>Cadastro de Pessoa</h1>
-    <form action="#" th:action="@{/pessoa/cadastrar}" th:object="${pessoaForm}" method="POST">
-        <p>
-            <label for="nome" th:text="#{cadastro.pessoa.nome}"></label>
-            <input type="text" th:field="*{nome}" id="nome">
-            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-        </p>
-        <p>
-            <label for="estadoCivil" th:text="#{cadastro.pessoa.estado.civil}"></label>
-            <select th:field="*{estadoCivil}" id="estadoCivil">
-                <option th:each="p : ${estadosCivis}" th:value="${p.id}" th:text="${p.descricao}"></option>
-            </select>
-            <span th:if="${#fields.hasErrors('estadoCivil')}" th:errors="*{estadoCivil}"></span>
-        </p>
-        <p>
-            <label for="dataNascimento" th:text="#{cadastro.pessoa.data.nascimento}"></label>
-            <input type="date" th:field="*{{dataNascimento}}" id="dataNascimento">
-            <span th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
-        </p>
-        <p>
-            <label for="nomeParceiro" th:text="#{cadastro.pessoa.nome.parceiro}"></label>
-            <input type="text" th:field="*{nomeParceiro}" id="nomeParceiro">
-            <span th:if="${#fields.hasErrors('nomeParceiro')}" th:errors="*{nomeParceiro}"></span>
-        </p>
-        <p>
-            <label for="dataNascimentoParceiro" th:text="#{cadastro.pessoa.data.nascimento.parceiro}"></label>
-            <input type="date" th:field="*{{dataNascimentoParceiro}}" id="dataNascimentoParceiro">
-            <span th:if="${#fields.hasErrors('dataNascimentoParceiro')}" th:errors="*{dataNascimentoParceiro}"></span>
-        </p>
-        <p>
-            <input type="submit" value="Salvar">
-        </p>
-    </form>
-
-    <div>
-        <p>
-            <a th:href="@{/}">Home</a>
-        </p>
-    </div>
-</body>
+    <head>
+        <title>Cadastro de Pessoa</title>
+        <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/styles/bootstrap-theme.min.css}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Cadastro de Pessoa</h1>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <a th:href="@{/}" class="btn btn-info">Voltar para a Home</a>
+                </div>
+            </div>
+            <form class="form-horizontal" action="#" th:action="@{/pessoa/cadastrar}" th:object="${pessoaForm}" method="POST">
+                <div class="form-group">
+                    <label for="nome" class="col-md-3 control-label" th:text="#{cadastro.pessoa.nome}"></label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" th:field="*{nome}" id="nome" placeholder="Apenas letras e no mínimo 5">
+                    </div>
+                    <div class="col-md-5">
+                        <span class="alert alert-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="estadoCivil" class="col-md-3 control-label" th:text="#{cadastro.pessoa.estado.civil}"></label>
+                    <div class="col-md-4">
+                        <select class="form-control" th:field="*{estadoCivil}" id="estadoCivil">
+                            <option th:each="p : ${estadosCivis}" th:value="${p.id}" th:text="${p.descricao}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <span class="alert alert-danger" th:if="${#fields.hasErrors('estadoCivil')}" th:errors="*{estadoCivil}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dataNascimento" class="col-md-3 control-label" th:text="#{cadastro.pessoa.data.nascimento}"></label>
+                    <div class="col-md-4">
+                        <input type="date" class="form-control" th:field="*{{dataNascimento}}" id="dataNascimento">
+                    </div>
+                    <div class="col-md-5">
+                        <span class="alert alert-danger" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="nomeParceiro" class="col-md-3 control-label" th:text="#{cadastro.pessoa.nome.parceiro}"></label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" th:field="*{nomeParceiro}" id="nomeParceiro" placeholder="Obrigatório preencher se estado civil é casado">
+                    </div>
+                    <div class="col-md-5">
+                        <span class="alert alert-danger" th:if="${#fields.hasErrors('nomeParceiro')}" th:errors="*{nomeParceiro}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dataNascimentoParceiro" class="col-md-3 control-label" th:text="#{cadastro.pessoa.data.nascimento.parceiro}"></label>
+                    <div class="col-md-4">
+                        <input type="date" class="form-control" th:field="*{{dataNascimentoParceiro}}" id="dataNascimentoParceiro">
+                    </div>
+                    <div class="col-md-5">
+                        <span class="alert alert-danger" th:if="${#fields.hasErrors('dataNascimentoParceiro')}" th:errors="*{dataNascimentoParceiro}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-9">
+                        <input type="submit" class="btn btn-primary" value="Salvar">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
 </html>

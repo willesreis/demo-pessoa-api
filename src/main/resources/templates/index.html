@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
-<head>
-<title>Home</title>
-</head>
-<body>
-	<h1>
-		<span>Home :: Cadastro de Pessoas</span>
-	</h1>
-	<table>
-		<tr>
-			<td><a th:href="@{/pessoa/listar}">Listar Pessoas</td>
-		</tr>
-		<tr>
-			<td><a th:href="@{/pessoa/cadastro}">Cadastrar Pessoa</td>
-		</tr>
-	</table>
-</body>
+	<head>
+		<title>Home</title>
+        <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/styles/bootstrap-theme.min.css}">
+	</head>
+	<body>
+		<div class="container">
+			<div class="jumbotron">
+				<h1>Home</h1>
+				<p>Cadastro de Pessoas: gerenciamento dos dados de pessoas através do consumo de APIs REST. Confira nos botões abaixo.</p>
+				<p>
+					<a href="#" th:href="@{/pessoa/listar}" class="btn btn-primary btn-lg" role="button">Listar Pessoas</a>
+					<a href="#" th:href="@{/pessoa/cadastro}" class="btn btn-primary btn-lg" role="button">Cadastrar Pessoa</a>
+				</p>
+			</div>
+		</div>
+	</body>
 </html>

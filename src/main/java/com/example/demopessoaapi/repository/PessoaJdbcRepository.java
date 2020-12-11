@@ -6,6 +6,8 @@ import java.util.List;
 import com.example.demopessoaapi.mapper.PessoaRowMapper;
 import com.example.demopessoaapi.model.Pessoa;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +20,8 @@ public class PessoaJdbcRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    private Logger logger = LoggerFactory.getLogger(PessoaJdbcRepository.class);
 
     private static final String PESSOA_TODOS_OS_CAMPOS = 
         "select " +
@@ -90,17 +94,18 @@ public class PessoaJdbcRepository {
 	}
 
     public void insert(Pessoa pessoa) {
-        jdbcTemplate.update(
+        int rowsAffected = jdbcTemplate.update(
             PESSOA_CADASTRO, 
             pessoa.getNome(), 
             pessoa.getEstadoCivil().getId(), 
             pessoa.getDataNascimento(), 
             pessoa.getNomeParceiro(), 
             pessoa.getDataNascimentoParceiro());
+        logger.info(String.format("%d record(s) inserted.", rowsAffected));
     }
 
     public void update(Pessoa pessoa) {
-        jdbcTemplate.update(
+        int rowsAffected = jdbcTemplate.update(
             PESSOA_EDICAO, 
             pessoa.getNome(), 
             pessoa.getEstadoCivil().getId(), 
@@ -108,9 +113,11 @@ public class PessoaJdbcRepository {
             pessoa.getNomeParceiro(), 
             pessoa.getDataNascimentoParceiro(),
             pessoa.getId());
+        logger.info(String.format("%d record(s) updated.", rowsAffected));
     }
 
 	public void deleteById(Long id) {
-		jdbcTemplate.update(PESSOA_EXCLUSAO, id);
+		int rowsAffected = jdbcTemplate.update(PESSOA_EXCLUSAO, id);
+        logger.info(String.format("%d record(s) deleted.", rowsAffected));
 	}
 }
